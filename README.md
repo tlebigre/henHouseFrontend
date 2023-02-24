@@ -1,4 +1,4 @@
-# hen house frontend
+# Hen house frontend
 
 ## Developing
 
