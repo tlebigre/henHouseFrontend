@@ -1,8 +1,8 @@
-# create-svelte
+# henHouseFrontend
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start a development server:
 
 ```bash
 npm run dev
