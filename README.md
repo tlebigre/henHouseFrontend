@@ -7,6 +7,10 @@ Henhouse             |  Cameras
 
 # Hen house frontend
 
+> :warning: ***This application work only if [henHouseBackendApi](https://github.com/tlebigre/henHouseBackendApi) run !***
+
+This is front application for henHouseBackendApi project.
+
 ## Developing
 
 Start a development server:
