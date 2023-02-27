@@ -1,9 +1,9 @@
 [![en](https://img.shields.io/badge/lang-en-ab4b52.svg)](https://github.com/tlebigre/henHouseFrontend/blob/main/README.md)
 [![fr](https://img.shields.io/badge/lang-fr-318ce7.svg)](https://github.com/tlebigre/henHouseFrontend/blob/main/README.fr.md)
 
-Poulailler             |  Caméras
-:-------------------------:|:-------------------------:
-<img src="https://github.com/tlebigre/henHouseFrontend/blob/main/fr_henhouse.jpg" alt="" width="300" height="600">  |  <img src="https://github.com/tlebigre/henHouseFrontend/blob/main/fr_camera.jpg" alt="" width="300" height="600">
+Poulailler             |  Caméras             |  Boutons réels                 |
+:-------------------------:|:-------------------------:|:-------------------------:|
+<img src="https://github.com/tlebigre/henHouseFrontend/blob/main/fr_henhouse.jpg" alt="" width="300" height="600">  |  <img src="https://github.com/tlebigre/henHouseFrontend/blob/main/fr_camera.jpg" alt="" width="300" height="600"> | <img src="https://github.com/tlebigre/henHouseFrontend/blob/main/upDown.jpg" alt="" width="120" height="200">  |
 
 # Frontend du poulailler
 
