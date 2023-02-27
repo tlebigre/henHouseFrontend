@@ -7,6 +7,10 @@ Poulailler             |  Caméras
 
 # Frontend du poulailler
 
+> :warning: ***Cette application fonctionne uniquement si [henHouseBackendApi](https://github.com/tlebigre/henHouseBackendApi) est lancée !***
+
+C'est une application pour visualiser les données de henHouseBackendApi.
+
 ## Développement
 
 Démarrer le serveur de développement :
