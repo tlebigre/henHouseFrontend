@@ -29,7 +29,7 @@
 	let isEditTime = false;
 
 	onMount(async () => {
-		await fetch('http://' + host + ':8080/henHouse/getHenHouse')
+		await fetch('http://' + host + ':8080/henHouse/henHouse')
 			.then((r) => r.json())
 			.then((data) => henHouse = data);
 	});
@@ -37,13 +37,13 @@
 	onMount(async () => {
 		async function fetchState() {
 			if (!isEditState)
-				await fetch('http://' + host + ':8080/henHouse/getState')
+				await fetch('http://' + host + ':8080/henHouse/state')
 					.then((r) => r.json())
 					.then((data) => {
 						henHouse.state = data.state;
 					});
 
-			await fetch('http://' + host + ':8080/henHouse/getDateTime')
+			await fetch('http://' + host + ':8080/henHouse/dateTime')
 				.then((r) => r.json())
 				.then((data) => {
 					if (!isEditDate) henHouse.date = data.date;
@@ -56,7 +56,7 @@
 	});
 
 	async function doSave() {
-		const response = await fetch('http://' + host + ':8080/henHouse/saveHenHouse', {
+		const response = await fetch('http://' + host + ':8080/henHouse/henHouse', {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(henHouse)
@@ -86,7 +86,7 @@
 	<meta name="description" content="Henhouse" />
 </svelte:head>
 
-<Header />
+<Header pageName={$_('henHouseTitle')} />
 
 <h1>{$_('henHouse')}</h1>
 

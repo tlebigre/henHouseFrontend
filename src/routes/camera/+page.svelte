@@ -20,13 +20,13 @@
 	onMount(() => reloadCameraList());
 
 	async function reloadCameraList() {
-		await fetch('http://' + host + ':8080/henHouse/getAllCamera')
+		await fetch('http://' + host + ':8080/henHouse/cameras')
 			.then((r) => r.json())
 			.then((data) => (cameraList = data));
 	}
 
 	async function addCamera() {
-		const response = await fetch('http://' + host + ':8080/henHouse/saveCamera', {
+		const response = await fetch('http://' + host + ':8080/henHouse/camera', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(cameraSave)
@@ -35,8 +35,8 @@
 	}
 
 	async function editCamera(event: CustomEvent<Camera>) {
-		const response = await fetch('http://' + host + ':8080/henHouse/editCamera', {
-			method: 'POST',
+		const response = await fetch('http://' + host + ':8080/henHouse/camera', {
+			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(event.detail)
 		});
@@ -44,7 +44,7 @@
 	}
 
 	async function deleteCamera(event: CustomEvent<number>) {
-		const response = await fetch('http://' + host + ':8080/henHouse/removeCamera/' + event.detail, {
+		const response = await fetch('http://' + host + ':8080/henHouse/camera/' + event.detail, {
 			method: 'DELETE',
 			headers: { 'Content-Type': 'application/json' }
 		});
@@ -64,7 +64,7 @@
 	<meta name="description" content="Camera" />
 </svelte:head>
 
-<Header />
+<Header pageName={$_('camera')} />
 
 <h1>{$_('camera')}</h1>
 

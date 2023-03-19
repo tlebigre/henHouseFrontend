@@ -1,16 +1,31 @@
-<script>
+<script lang="ts">
 	import '../i18n';
 	import './styles.css';
-	import { _ } from 'svelte-i18n';
+	import { _ , locale, locales } from 'svelte-i18n';
 	import { page } from '$app/stores';
+	import { ComboBox } from "carbon-components-svelte";
 	import henLogo from '$lib/images/hen.svg';
 	import cameraLogo from '$lib/images/camera.svg';
+	import {language} from '../store.js';
+	
+	export let pageName : string;
+
+	const items=$locales.map((l: string,i: number)=> {return {id:i,text:l}})
+	let langId : number = items.find((item) => item.text === $language)?.id ?? 0
+	const formatSelected = (id: number) =>
+    	items.find((item) => item.id === id)?.text ?? "";
+			
+  	$: $locale = formatSelected(langId)
+	$: language.set(formatSelected(langId))
 </script>
 
 <header>
-	<div class="corner">
-		<img src={henLogo} alt="Henhouse" />
+	<ComboBox bind:selectedId={langId} {items} let:item width="20px!important"> 
+	<div>
+		<strong>{item.text}</strong>
+		<img width="16px" height="16px" src="{item.text}.png" alt="Lang"/>
 	</div>
+	</ComboBox>
 
 	<nav>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
@@ -18,7 +33,7 @@
 		</svg>
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">{$_('henHouse')}</a>
+				<a href="/">{$_('henHouseTitle')}</a>
 			</li>
 			<li aria-current={$page.url.pathname === '/camera' ? 'page' : undefined}>
 				<a href="/camera">{$_('camera')}</a>
@@ -30,7 +45,10 @@
 	</nav>
 
 	<div class="corner">
-		<img src={cameraLogo} alt="Henhouse" />
+		<img 
+		src={pageName === $_('henHouseTitle') ? henLogo: cameraLogo} 
+		alt={pageName === $_('henHouseTitle') ? $_('henHouseTitle'): $_('camera')}
+		/>
 	</div>
 </header>
 
