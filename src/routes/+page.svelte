@@ -27,6 +27,7 @@
 	let isEditState = false;
 	let isEditDate = false;
 	let isEditTime = false;
+	let bindDate = "";
 
 	onMount(async () => {
 		await fetch('http://' + host + ':8080/henHouse/henHouse')
@@ -46,7 +47,7 @@
 			await fetch('http://' + host + ':8080/henHouse/dateTime')
 				.then((r) => r.json())
 				.then((data) => {
-					if (!isEditDate) henHouse.date = data.date;
+					if (!isEditDate) bindDate = data.date;
 					if (!isEditTime) henHouse.time = data.time;
 				});
 		}
@@ -56,6 +57,7 @@
 	});
 
 	async function doSave() {
+		henHouse.date = bindDate;
 		const response = await fetch('http://' + host + ':8080/henHouse/henHouse', {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -136,7 +138,7 @@
 				<DatePicker
 					on:click={() => (isEditDate = true)}
 					datePickerType="single"
-					bind:value={henHouse.date}
+					bind:value={bindDate}
 					dateFormat="d/m/Y"
 					on:change
 				>
