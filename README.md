@@ -1,58 +1,34 @@
-# Svelte library
+[![en](https://img.shields.io/badge/lang-en-ab4b52.svg)](https://github.com/tlebigre/henhouse-app/blob/main/README.md)
+[![fr](https://img.shields.io/badge/lang-fr-318ce7.svg)](https://github.com/tlebigre/henhouse-app/blob/main/README.fr.md)
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+|                                                      Henhouse                                                      |                                                     Cameras                                                      |                                                 Real buttons                                                  |
+|:------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|
+| <img src="https://github.com/tlebigre/henhouse-app/blob/main/en_henhouse.jpg" alt="" width="300" height="600"> | <img src="https://github.com/tlebigre/henhouse-app/blob/main/en_camera.jpg" alt="" width="300" height="600"> | <img src="https://github.com/tlebigre/henhouse-app/blob/main/upDown.jpg" alt="" width="120" height="200"> |
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
 
-## Creating a project
+# Hen house frontend
 
-If you're seeing this, you've probably already done this step. Congrats!
+> :warning: ***This application work only if [henHouseBackendApi](https://github.com/tlebigre/henHouseBackendApi) run !***
 
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
+This is front application for henHouseBackendApi project.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start a development server:
 
-```sh
+```bash
 npm run dev
 
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
-
 ## Building
 
-To build your library:
+To create a production version of your app:
 
-```sh
-npm pack
-```
-
-To create a production version of your showcase app:
-
-```sh
+```bash
 npm run build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
-```
