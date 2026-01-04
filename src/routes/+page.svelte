@@ -17,8 +17,19 @@
 		Button
 	} from 'carbon-components-svelte';
 
-	import { Settings, SettingsAdjust, Time, ArrowUp, ArrowDown, Save, Edit } from 'carbon-icons-svelte';
-	import { NotificationDisplay as NotificationDisplayRaw, notifier } from '@beyonk/svelte-notifications';
+	import {
+		Settings,
+		SettingsAdjust,
+		Time,
+		ArrowUp,
+		ArrowDown,
+		Save,
+		Edit
+	} from 'carbon-icons-svelte';
+	import {
+		NotificationDisplay as NotificationDisplayRaw,
+		notifier
+	} from '@beyonk/svelte-notifications';
 
 	import Header from './Header.svelte';
 	import type { HenHouse } from '../types/HenHouse.type.js';
@@ -106,10 +117,7 @@
 		if (!henHouse || isEditing) return;
 
 		try {
-			const [state, dateTime] = await Promise.all([
-				api.getState(),
-				api.getDateTime()
-			]);
+			const [state, dateTime] = await Promise.all([api.getState(), api.getDateTime()]);
 
 			henHouse = {
 				...henHouse,
@@ -118,7 +126,9 @@
 			};
 
 			bindDate = dateTime.date;
-		} catch { /* empty */ }
+		} catch {
+			/* empty */
+		}
 	}
 
 	/* ===========================
@@ -142,11 +152,9 @@
 		}
 	}
 
-	const doOpen = () =>
-		postAction('/opening/open', 'opening');
+	const doOpen = () => postAction('/opening/open', 'opening');
 
-	const doClose = () =>
-		postAction('/opening/close', 'closure');
+	const doClose = () => postAction('/opening/close', 'closure');
 
 	async function postAction(url: string, successKey: string) {
 		try {
@@ -171,7 +179,7 @@
 
 {#if henHouse}
 	<section class="card">
-		<h2><Settings/>{$_('limitsAndState')}</h2>
+		<h2><Settings />{$_('limitsAndState')}</h2>
 		<div class="form-grid">
 			<div class="label">{$_('bottomLimit')}</div>
 			<NumberInput bind:value={henHouse.bottomLimit} />
@@ -193,15 +201,12 @@
 					iconDescription={$_('edit')}
 					on:click={() => (isEditState = !isEditState)}
 				/>
-				<NumberInput
-					bind:value={henHouse.state}
-					disabled={!isEditState}
-				/>
+				<NumberInput bind:value={henHouse.state} disabled={!isEditState} />
 			</div>
 		</div>
 	</section>
 	<section class="card">
-		<h2><SettingsAdjust/>{$_('options')}</h2>
+		<h2><SettingsAdjust />{$_('options')}</h2>
 		<div class="form-grid">
 			<div class="label">{$_('stopEngine')}</div>
 			<Toggle bind:toggled={henHouse.stopEngine} labelA={$_('no')} labelB={$_('yes')} />
@@ -224,7 +229,7 @@
 	</section>
 
 	<section class="card">
-		<h2><Time/> {$_('dateTime')}</h2>
+		<h2><Time /> {$_('dateTime')}</h2>
 		<div class="form-grid">
 			<div class="label">{$_('date')}</div>
 			<div class="field-with-action">
@@ -236,11 +241,7 @@
 					iconDescription={$_('edit')}
 					on:click={() => (isEditDate = !isEditDate)}
 				/>
-				<DatePicker
-					datePickerType="single"
-					bind:value={bindDate}
-					dateFormat="d/m/Y"
-				>
+				<DatePicker datePickerType="single" bind:value={bindDate} dateFormat="d/m/Y">
 					<DatePickerInput disabled={!isEditDate} />
 				</DatePicker>
 			</div>
@@ -284,41 +285,41 @@
 {/if}
 
 <style>
-    :global(.edit-active) {
-        background-color: #198038;
-    }
+	:global(.edit-active) {
+		background-color: #198038;
+	}
 
-    .buttonsFlex {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
+	.buttonsFlex {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+	}
 
-    .card {
-        background: white;
-        border-radius: 8px;
-        padding: 1.25rem 3rem;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        margin-bottom: 1.5rem;
-    }
+	.card {
+		background: white;
+		border-radius: 8px;
+		padding: 1.25rem 3rem;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+		margin-bottom: 1.5rem;
+	}
 
-    .card h2 {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: #161616;
-    }
+	.card h2 {
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 1rem;
+		color: #161616;
+	}
 
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 0.75rem 1rem;
-        align-items: center;
-    }
+	.form-grid {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0.75rem 1rem;
+		align-items: center;
+	}
 
-    .field-with-action {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-    }
+	.field-with-action {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
 </style>

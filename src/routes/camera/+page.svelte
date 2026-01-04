@@ -5,7 +5,10 @@
 	import { _ } from 'svelte-i18n';
 	import { onMount, type SvelteComponent } from 'svelte';
 	import { Button, Modal, TextInput } from 'carbon-components-svelte';
-	import { NotificationDisplay as NotificationDisplayRaw, notifier } from '@beyonk/svelte-notifications';
+	import {
+		NotificationDisplay as NotificationDisplayRaw,
+		notifier
+	} from '@beyonk/svelte-notifications';
 	import { host } from '../constants.js';
 	import { Add } from 'carbon-icons-svelte';
 	import Header from '../Header.svelte';
@@ -87,12 +90,7 @@
 
 <h1>{$_('camera')}</h1>
 
-<Button
-	class="add-button"
-	icon={Add}
-	on:click={() => (open = true)}
-	>{$_('add')}
-</Button>
+<Button class="add-button" icon={Add} on:click={() => (open = true)}>{$_('add')}</Button>
 
 <Modal
 	bind:open
@@ -127,11 +125,7 @@
 		<p class="empty">{$_('noCamera')}</p>
 	{:else}
 		{#each cameraList as cam (cam.id)}
-			<CameraLine
-				camera={cam}
-				onEdit={editCamera}
-				onDelete={deleteCamera}
-			/>
+			<CameraLine camera={cam} onEdit={editCamera} onDelete={deleteCamera} />
 		{/each}
 	{/if}
 </div>
@@ -141,14 +135,14 @@
 		box-sizing: border-box;
 	}
 
-  :global(.add-button) {
-			margin: 10px 0 20px 20px;
-  }
+	:global(.add-button) {
+		margin: 10px 0 20px 20px;
+	}
 
-  .rowFlex {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-      padding: 0 20px;
-  }
+	.rowFlex {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 30px;
+		padding: 0 20px;
+	}
 </style>

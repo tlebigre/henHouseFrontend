@@ -1,31 +1,32 @@
 <script lang="ts">
 	import '../i18n';
 	import './styles.css';
-	import { _ , locale, locales } from 'svelte-i18n';
+	import { _, locale, locales } from 'svelte-i18n';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { ComboBox } from "carbon-components-svelte";
+	import { ComboBox } from 'carbon-components-svelte';
 	import henLogo from '$lib/images/hen.svg';
 	import cameraLogo from '$lib/images/camera.svg';
-	import {language} from '../store.js';
-	
-	export let pageName : string;
+	import { language } from '../store.js';
 
-	const items=$locales.map((l: string,i: number)=> {return {id:i,text:l}})
-	let langId : number = items.find((item) => item.text === $language)?.id ?? 0
-	const formatSelected = (id: number) =>
-    	items.find((item) => item.id === id)?.text ?? "";
+	export let pageName: string;
 
-	$: $locale = formatSelected(langId)
-	$: language.set(formatSelected(langId))
+	const items = $locales.map((l: string, i: number) => {
+		return { id: i, text: l };
+	});
+	let langId: number = items.find((item) => item.text === $language)?.id ?? 0;
+	const formatSelected = (id: number) => items.find((item) => item.id === id)?.text ?? '';
+
+	$: $locale = formatSelected(langId);
+	$: language.set(formatSelected(langId));
 </script>
 
 <header>
-	<ComboBox bind:selectedId={langId} {items} let:item width="20px!important"> 
-	<div>
-		<strong>{item.text}</strong>
-		<img width="16px" height="16px" src="{item.text}.png" alt="Lang"/>
-	</div>
+	<ComboBox bind:selectedId={langId} {items} let:item width="20px!important">
+		<div>
+			<strong>{item.text}</strong>
+			<img width="16px" height="16px" src="{item.text}.png" alt="Lang" />
+		</div>
 	</ComboBox>
 
 	<nav>
@@ -46,9 +47,9 @@
 	</nav>
 
 	<div class="corner">
-		<img 
-		src={pageName === $_('henHouseTitle') ? henLogo: cameraLogo} 
-		alt={pageName === $_('henHouseTitle') ? $_('henHouseTitle'): $_('camera')}
+		<img
+			src={pageName === $_('henHouseTitle') ? henLogo : cameraLogo}
+			alt={pageName === $_('henHouseTitle') ? $_('henHouseTitle') : $_('camera')}
 		/>
 	</div>
 </header>
