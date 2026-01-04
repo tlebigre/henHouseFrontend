@@ -53,7 +53,7 @@ jobs:
 
       - name: Deploy to Nginx web root
         run: |
-          sudo mkdir -p "$/var/www/henhouse"
+          sudo mkdir -p "/var/www/henhouse"
           sudo rsync -av --delete /tmp/dist/ "/var/www/henhouse/"
           sudo chown -R www-data:www-data "/var/www/henhouse"
 
