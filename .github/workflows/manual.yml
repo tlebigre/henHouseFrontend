@@ -1,16 +1,9 @@
-name: Deploy Frontend
+name: Deploy HenHouse Frontend
 
 on:
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-    inputs:
-      environment:
-        description: "Environment to deploy to"
-        required: true
-        default: "prod"
-        type: choice
-        options:
-          - prod
-          - staging
 
 jobs:
   build:
