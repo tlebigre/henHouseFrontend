@@ -1,9 +1,16 @@
 name: Deploy HenHouse Frontend
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy to"
+        required: true
+        default: "prod"
+        type: choice
+        options:
+          - prod
+          - staging
 
 jobs:
   build:
@@ -46,9 +53,9 @@ jobs:
 
       - name: Deploy to Nginx web root
         run: |
-          sudo mkdir -p "${{ /var/www/henhouse }}"
-          sudo rsync -av --delete /tmp/dist/ "${{ /var/www/henhouse }}/"
-          sudo chown -R www-data:www-data "${{ /var/www/henhouse }}"
+          sudo mkdir -p "$/var/www/henhouse"
+          sudo rsync -av --delete /tmp/dist/ "/var/www/henhouse/"
+          sudo chown -R www-data:www-data "/var/www/henhouse"
 
       - name: Reload Nginx
         run: sudo systemctl reload nginx
