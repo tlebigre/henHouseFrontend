@@ -11,51 +11,40 @@ on:
         options:
           - prod
           - staging
-
 jobs:
   build:
-    name: Build frontend
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
+      - run: npm run build
 
-      - name: Build Svelte app
-        run: npm run build
-
-      - name: Upload dist artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: frontend-dist
-          path: dist/
+          name: frontend-build
+          path: build
 
   deploy:
-    name: Deploy to Raspberry Pi
-    runs-on: [self-hosted, henhouse-front]
     needs: build
+    runs-on: [self-hosted, henhouse-front]
 
     steps:
-      - name: Download dist artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
-          name: frontend-dist
-          path: /tmp/dist
+          name: frontend-build
+          path: /tmp/build
 
-      - name: Deploy to Nginx web root
+      - name: Deploy to Nginx
         run: |
-          sudo mkdir -p "/var/www/henhouse"
-          sudo rsync -av --delete /tmp/dist/ "/var/www/henhouse/"
-          sudo chown -R www-data:www-data "/var/www/henhouse"
+          sudo mkdir -p /var/www/henhouse
+          sudo rsync -av --delete /tmp/build/ /var/www/henhouse/
+          sudo chown -R www-data:www-data /var/www/henhouse
 
-      - name: Reload Nginx
+      - name: Reload nginx
         run: sudo systemctl reload nginx
