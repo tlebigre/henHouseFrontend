@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../i18n';
 	import './styles.css';
 	import 'carbon-components-svelte/css/white.css';
 

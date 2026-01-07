@@ -7,6 +7,9 @@ export default {
 			assets: 'build',
 			fallback: 'index.html', // CRUCIAL pour SPA
 			precompress: false
-		})
+		}),
+		alias: {
+			$i18n: 'src/i18n'
+		}
 	}
 };

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../i18n';
 	import './styles.css';
 	import { _, locale, locales } from 'svelte-i18n';
 	import { page } from '$app/state';

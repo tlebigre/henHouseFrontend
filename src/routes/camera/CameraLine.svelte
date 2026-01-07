@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '../styles.css';
 	import 'carbon-components-svelte/css/white.css';
-	import '../../i18n';
 	import { _ } from 'svelte-i18n';
 	import { Button, Modal, TextInput } from 'carbon-components-svelte';
 	import { TrashCan, FitToScreen, Edit } from 'carbon-icons-svelte';

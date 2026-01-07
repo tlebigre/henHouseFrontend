@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../styles.css';
-	import '../../i18n';
 	import 'carbon-components-svelte/css/white.css';
 	import { _ } from 'svelte-i18n';
 	import { onMount, type SvelteComponent } from 'svelte';
