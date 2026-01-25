@@ -12,6 +12,8 @@
 This is front application for henHouseBackendApi project.
 
 ## Developing
+
+## /etc/nginx/sites-available/henhouse
 ```bash
 server {
     listen 80;
