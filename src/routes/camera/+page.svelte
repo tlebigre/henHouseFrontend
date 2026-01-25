@@ -8,7 +8,6 @@
 		NotificationDisplay as NotificationDisplayRaw,
 		notifier
 	} from '@beyonk/svelte-notifications';
-	import { host } from '../constants.js';
 	import { Add } from 'carbon-icons-svelte';
 	import Header from '../Header.svelte';
 	import CameraLine from './CameraLine.svelte';
@@ -27,16 +26,15 @@
 	/* ===========================
 	 * API
 	 * =========================== */
-	const API_BASE = `http://${host}:8085`;
 
 	async function reloadCameraList() {
-		await fetch(`${API_BASE}/camera/all`)
+		await fetch(`/camera/all`)
 			.then((r) => r.json())
 			.then((data) => (cameraList = data));
 	}
 
 	async function addCamera() {
-		const response = await fetch(`${API_BASE}/camera`, {
+		const response = await fetch(`/camera`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(cameraSave)
@@ -47,7 +45,7 @@
 	}
 
 	async function editCamera(camera: Camera) {
-		const response = await fetch(`${API_BASE}/camera`, {
+		const response = await fetch(`/camera`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(camera)
@@ -58,7 +56,7 @@
 	}
 
 	async function deleteCamera(id: number) {
-		const response = await fetch(`${API_BASE}/camera/${id}`, {
+		const response = await fetch(`/camera/${id}`, {
 			method: 'DELETE',
 			headers: { 'Content-Type': 'application/json' }
 		});

@@ -32,7 +32,6 @@
 
 	import Header from './Header.svelte';
 	import type { HenHouse } from '../types/HenHouse.type.js';
-	import { host } from './constants.js';
 
 	// Cast the raw import to a type TypeScript understands
 	const NotificationDisplay = NotificationDisplayRaw as never as typeof SvelteComponent;
@@ -40,29 +39,28 @@
 	/* ===========================
 	 * API
 	 * =========================== */
-	const API_BASE = `http://${host}:8085`;
 
 	const api = {
 		async getHenHouse(): Promise<HenHouse> {
-			const response = await fetch(`${API_BASE}/henHouse/henHouse`);
+			const response = await fetch(`/henHouse/henHouse`);
 			if (!response.ok) throw new Error();
 			return response.json();
 		},
 
 		async getState() {
-			const response = await fetch(`${API_BASE}/henHouse/state`);
+			const response = await fetch(`/henHouse/state`);
 			if (!response.ok) throw new Error();
 			return response.json();
 		},
 
 		async getDateTime() {
-			const response = await fetch(`${API_BASE}/henHouse/dateTime`);
+			const response = await fetch(`/henHouse/dateTime`);
 			if (!response.ok) throw new Error();
 			return response.json();
 		},
 
 		async saveHenHouse(body: HenHouse) {
-			const response = await fetch(`${API_BASE}/henHouse/henHouse`, {
+			const response = await fetch(`/henHouse/henHouse`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(body)
@@ -71,7 +69,7 @@
 		},
 
 		async post(url: string) {
-			const response = await fetch(`${API_BASE}${url}`, { method: 'POST' });
+			const response = await fetch(`${url}`, { method: 'POST' });
 			if (!response.ok) throw new Error();
 		}
 	};
