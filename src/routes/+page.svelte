@@ -32,6 +32,7 @@
 
 	import Header from './Header.svelte';
 	import type { HenHouse } from '../types/HenHouse.type.js';
+	import type { LastOpening } from '../types/LastOpening.type.js';
 
 	// Cast the raw import to a type TypeScript understands
 	const NotificationDisplay = NotificationDisplayRaw as never as typeof SvelteComponent;
@@ -59,8 +60,23 @@
 			return response.json();
 		},
 
+		async getLastOpeningDate(): Promise<LastOpening> {
+			const response = await fetch(`/opening/lastOpening`);
+			if (!response.ok) throw new Error();
+			return response.json();
+		},
+
 		async saveHenHouse(body: HenHouse) {
 			const response = await fetch(`/henHouse/henHouse`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body)
+			});
+			if (!response.ok) throw new Error();
+		},
+
+		async saveLastOpeningDate(body: LastOpening) {
+			const response = await fetch(`/opening/lastOpening`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(body)
@@ -83,8 +99,10 @@
 	let isEditState = false;
 	let isEditDate = false;
 	let isEditTime = false;
+	let isEditLastOpeningDate = false;
 
 	let bindDate = '';
+	let bindLastOpeningDate = '';
 
 	$: isEditing = isEditState || isEditDate || isEditTime;
 	$: hasChanges =
@@ -114,7 +132,7 @@
 		if (!henHouse || isEditing) return;
 
 		try {
-			const [state, dateTime] = await Promise.all([api.getState(), api.getDateTime()]);
+			const [state, dateTime, lastOpeningDate] = await Promise.all([api.getState(), api.getDateTime(), api.getLastOpeningDate()]);
 
 			henHouse = {
 				...henHouse,
@@ -123,6 +141,7 @@
 			};
 
 			bindDate = dateTime.date;
+			bindLastOpeningDate = lastOpeningDate.date;
 		} catch {
 			/* empty */
 		}
@@ -144,6 +163,18 @@
 			isEditDate = false;
 			isEditTime = false;
 			isEditState = false;
+		} catch {
+			notifier.danger($_('saveError'), 2000);
+		}
+	}
+
+	async function doSaveLastOpeningDate() {
+		if (!bindLastOpeningDate) return;
+
+		try {
+			await api.saveLastOpeningDate({ date: bindLastOpeningDate });
+
+			notifier.success($_('saveSuccess'), 2000);
 		} catch {
 			notifier.danger($_('saveError'), 2000);
 		}
@@ -267,6 +298,30 @@
 		<div class="form-grid">
 			<div class="label">{$_('hourOpeningMax')}</div>
 			<TimePicker bind:value={henHouse.hourOpeningMax} />
+		</div>
+
+		<div class="form-grid">
+			<div class="label">{$_('lastOpeningDate')}</div>
+			<div class="field-with-action">
+				<Button
+					kind="tertiary"
+					size="small"
+					class={isEditLastOpeningDate ? 'edit-active' : undefined}
+					icon={Edit}
+					iconDescription={$_('edit')}
+					on:click={() => (isEditLastOpeningDate = !isEditLastOpeningDate)}
+				/>
+				<Button
+					kind="tertiary"
+					size="small"
+					disabled={!isEditLastOpeningDate}
+					icon={Save}
+					on:click={() => (doSaveLastOpeningDate)}
+				/>
+				<DatePicker datePickerType="single" bind:value={bindLastOpeningDate} dateFormat="d/m/Y">
+					<DatePickerInput disabled={!isEditLastOpeningDate} />
+				</DatePicker>
+			</div>
 		</div>
 	</section>
 

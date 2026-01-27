@@ -28,6 +28,7 @@
 	"henHouseTitle": "Poulailler",
 	"hourOpening": "Heure d'ouverture",
 	"hourOpeningMax": "Heure d'ouverture maximale",
+	"lastOpeningDate" : "Date de la dernière ouverture matinale",
 	"limitsAndState": "Limites et état",
 	"loading": "Chargement...",
 	"modify": "Modifier",

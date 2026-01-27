@@ -28,6 +28,7 @@
 	"henHouseTitle": "HenHouse",
 	"hourOpening": "Opening time",
 	"hourOpeningMax": "Opening time max",
+	"lastOpeningDate" : "Last morning opening date",
 	"limitsAndState": "Limits and state",
 	"loading": "Loading...",
 	"modify": "Modify",
