@@ -29,37 +29,25 @@ server {
     gzip on;
     gzip_types text/css application/javascript application/json image/svg+xml;
 
-    location /henhouse/ {
-        proxy_pass http://127.0.0.1:8085/;
+    location /henHouse/ {
+        proxy_pass http://127.0.0.1:8085/henHouse/;
         proxy_http_version 1.1;
-
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
-        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
     location /camera/ {
-        proxy_pass http://127.0.0.1:8085/;
+        proxy_pass http://127.0.0.1:8085/camera/;
         proxy_http_version 1.1;
-
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
-        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
     location /opening/ {
-        proxy_pass http://127.0.0.1:8085/;
+        proxy_pass http://127.0.0.1:8085/opening/;
         proxy_http_version 1.1;
-
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
-        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
