@@ -129,7 +129,7 @@
 	}
 
 	async function fetchLiveData() {
-		if (!henHouse || isEditing) return;
+		if (!henHouse || isEditing || isEditState || isEditLastOpeningDate) return;
 
 		try {
 			const [state, dateTime, lastOpeningDate] = await Promise.all([api.getState(), api.getDateTime(), api.getLastOpeningDate()]);
@@ -316,7 +316,7 @@
 					size="small"
 					disabled={!isEditLastOpeningDate}
 					icon={Save}
-					on:click={() => (doSaveLastOpeningDate)}
+					on:click={doSaveLastOpeningDate}
 				/>
 				<DatePicker datePickerType="single" bind:value={bindLastOpeningDate} dateFormat="d/m/Y">
 					<DatePickerInput disabled={!isEditLastOpeningDate} />
