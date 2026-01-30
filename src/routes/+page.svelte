@@ -104,7 +104,12 @@
 	let bindDate = '';
 	let bindLastOpeningDate = '';
 
-	$: isEditing = isEditState || isEditDate || isEditTime;
+	$: isEditing =
+		isEditState ||
+		isEditDate ||
+		isEditTime ||
+		isEditLastOpeningDate;
+
 	$: hasChanges =
 		henHouse && originalHenHouse
 			? JSON.stringify(henHouse) !== JSON.stringify(originalHenHouse)
@@ -129,7 +134,7 @@
 	}
 
 	async function fetchLiveData() {
-		if (!henHouse || isEditing || isEditState || isEditLastOpeningDate) return;
+		if (!henHouse || isEditing) return;
 
 		try {
 			const [state, dateTime, lastOpeningDate] = await Promise.all([api.getState(), api.getDateTime(), api.getLastOpeningDate()]);
@@ -175,6 +180,7 @@
 			await api.saveLastOpeningDate({ date: bindLastOpeningDate });
 
 			notifier.success($_('saveSuccess'), 2000);
+			isEditLastOpeningDate = false;
 		} catch {
 			notifier.danger($_('saveError'), 2000);
 		}
@@ -316,7 +322,8 @@
 					size="small"
 					disabled={!isEditLastOpeningDate}
 					icon={Save}
-					on:click={doSaveLastOpeningDate}
+					iconDescription={$_('save')}
+					on:click={() => doSaveLastOpeningDate()}
 				/>
 				<DatePicker datePickerType="single" bind:value={bindLastOpeningDate} dateFormat="d/m/Y">
 					<DatePickerInput disabled={!isEditLastOpeningDate} />
